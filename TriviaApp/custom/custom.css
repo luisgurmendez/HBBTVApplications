@@ -1,0 +1,373 @@
+@CHARSET "UTF-8";
+
+@font-face {
+  font-family: 'FontAwesome';
+  src: url('fonts/fontawesome-webfont.eot?v=4.4.0');
+  src: url('fonts/fontawesome-webfont.eot?#iefix&v=4.4.0') format('embedded-opentype'), url('fonts/fontawesome-webfont.woff2?v=4.4.0') format('woff2'), url('fonts/fontawesome-webfont.woff?v=4.4.0') format('woff'), url('fonts/fontawesome-webfont.ttf?v=4.4.0') format('truetype'), url('fonts/fontawesome-webfont.svg?v=4.4.0#fontawesomeregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face{
+	font-family: 'proximanova';
+	src: url('fonts/proximanova.ttf');
+}
+@font-face{
+	font-family: 'proximanova';
+	src: url('fonts/proximanova.eot');
+}
+
+
+body {
+	font-family: "Helvetica Neue", HelveticaNeue, "Helvetica-Neue",	Helvetica, "BBAlpha Sans", sans-serif;
+	background-color: lightgoldenrodyellow;
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
+	display: block;
+}
+/*Page sample  ------------------------------------------------------------------ */
+
+.mui-page-title {
+	width: 100%;
+    text-align: center;
+    font-size: 20px;
+    padding-top: 12px;
+}
+.mui-page-body {}
+.mui-page-body-content {
+	padding: 10px;
+}
+/* GoBack button ------------------------------------------------------------------ */
+.mui-backarrow {
+	position: absolute;
+	top: 4px;
+	left: 5px;
+	width: 40px;
+	height: 37px;
+}
+.mui-backarrow:after {
+	font-family: FontAwesome;
+	content: '\f104';
+	font-size: 35px;
+	color: #1A7EFA;
+}
+
+/* Tabbar --------------------------------------------------------------------------*/
+
+
+
+#mui-viewport {
+	top: 0px;
+	bottom: 48px;
+}
+
+
+.mui-tabbar {
+	width: 100%;
+	height: 48px;
+	position: absolute;
+	bottom: 0px;
+	background-color: #FAFAF9;
+	z-index:3;
+}
+.mui-tabbar ul {
+	padding: 0px;
+	margin: 0px;
+	list-style: none;
+}
+
+.mui-tabbar ul li:before {
+	font-family: 'FontAwesome';
+	font-size: 27px;
+	display: block;
+	width: 100%;
+	height: 26px;
+	text-align: center;
+	background-repeat: no-repeat;
+	background-position: center 0px;
+	content: ' ';
+	margin-top: 5px;
+}
+.mui-tabbar ul li:hover:before {}
+
+
+.mui-tabbar ul li a {
+	color: black;
+	font-size: 12px;
+	text-align: center;
+	position: absolute;
+	width: 100%;
+	height: 48px;
+	top: 0px;
+	left: 0px;
+	padding-top: 33px;
+}
+
+.active-tabbar{
+	color: #1A7EFA !important;
+}
+
+
+.mui-tabbar ul li {
+	color: #b5b4b9;
+	width: 50%;
+	height: 48px;
+	position: relative;
+}
+
+#tabbar-activeQuestion{
+
+	float: right;
+}
+
+#tabbar-historical{
+	float: left;
+	border-right: 1px solid lightgray;
+}
+
+#tabbar-historical:before{
+	content: "\f017";
+}
+#tabbar-activeQuestion:before{
+	content: "\f128";
+}
+
+
+/* --- */
+
+
+.question_container{
+	overflow: auto;
+	position: relative;
+	font-size: 15px;
+	text-align: center;
+	width:80%;
+	margin-top:15px;
+	border-radius: 10px;
+	border: 1px solid lightgray;
+	margin-bottom:10px;
+	padding-top:10px;
+	padding-bottom:10px;
+	padding-right: 3px;
+	padding-left: 3px;
+	margin-left:10%;
+	display:inline-block;
+
+}
+
+.question_container.activeQuestion{
+	margin-top:50%;
+}
+
+.question_container{
+	background-color: white;
+}
+.mui-page{
+	background-color: gray;
+	background-image: repeating-linear-gradient(90deg, transparent, transparent 35px, rgba(255,255,255,.5) 35px, rgba(255,255,255,.5) 70px);
+
+}
+
+.mui-page-body{
+	top:44px;
+}
+.question{
+	font-style: oblique;
+	font-weight: bold;
+	font-size: 15px;
+	font-family: proximanova, Calibri;
+
+
+}
+.answer_wrapper{
+	margin-top:10px;
+	text-align: left;
+
+}
+
+.answer{
+	margin-left: 30px;
+	font-family: proximanova, Calibri;
+}
+
+.custom_radiobtn{
+	float:left;
+	width: 20px;
+	height:20px;
+	border-radius: 10px;
+	border: 1px solid #e2e2e2;
+}
+
+.custom_radiobtn.selected{
+	background-color: #7b9cff;
+}
+
+
+.custom_radiobtn >a{
+	position: relative;
+}
+
+
+.info_msg{
+	font-size:13px;
+	text-align: center;
+	display:inline-block;
+	width: 80%;
+	margin-left: 10%;
+	font-style: italic;
+	border-radius: 5px;
+	background-color: white;
+	border: 1px solid lightgray;
+	font-family: proximanova, Calibri;
+}
+
+.reconnect_btn{
+	font-size:19px;
+	text-align: center;
+	padding:10px;
+	border-radius: 5px;
+	background-color: white;
+	border: 1px solid lightgray;
+	color: #8d8d8d;
+	font-family: proximanova, Calibri;
+	width:40%;
+	margin-left: 30%;
+	top:60%;
+	font-size: 15px;
+}
+
+.correct_answer{
+	background-color: #a2dc90;
+}
+
+.incorrect_answer{
+	background-color: #ff6162;
+}
+
+.con_success{
+	color: #a2dc90;
+}
+.con_error, .con_close{
+	color: #ff6162;
+}
+
+#scroll_up_btn{
+	position:absolute;
+	text-align: center;
+	margin-bottom: 5px;
+	bottom:0px;
+	width: 40px;
+	height: 40px;
+	border-radius: 10px;
+	background: white;
+	border: 1px solid #eeeeee;
+	margin-left: 5px;
+	z-index:2;
+}
+
+#scroll_up_btn >a{
+	position:relative;
+	top:15%;
+
+}
+#scroll_up_btn >a:before{
+
+	font-family: FontAwesome;
+	content: '\f106';
+	font-size: 25px;
+	color: #9fbdfa;
+}
+
+.display_correctness{
+
+	float: right;
+	margin-top: 10px;
+	margin-right: 10px;
+	border-radius: 15px;
+	border: 1px solid lightgray;
+	position:relative;
+	font-family: FontAwesome;
+	font-size: 25px;
+	width: 28px;
+	height: 28px;
+}
+
+.display_correctness.incorrect_icon:before{
+	content:"\f00d";
+	text-align: center;
+	background-repeat: no-repeat;
+	background-position: center 0px;
+	color: #ff6162;
+}
+.display_correctness.correct_icon:before{
+	content:"\f00c";
+	text-align: center;
+	background-repeat: no-repeat;
+	background-position: center 0px;
+	color: #a2dc90;
+}
+
+
+.send_answerbtn{
+	font-family: proximanova, Calibri;
+	width: 20%;
+	border-radius: 5px;
+	padding: 5px;
+	margin: 0 auto;
+	background-color: #a2dc90;
+	box-shadow: 2px 2px 1px #86b677;
+	color: #2d2d2f;
+
+}
+.send_answerbtn.deactivated_btn{
+	box-shadow: inset 2px 2px 2px #969696 !important;
+	background-color: #e5e7eb !important;
+
+
+}
+
+.mui-page-header {
+	background-color: #ecf0f1;
+	border-bottom: solid 1px #bbb;
+}
+.mui-page-logo {
+	width: 100px;
+	height: 35px;
+	margin: auto;
+	margin-top: 5px;
+	background-position: center;
+	background-size: contain;
+	background-image: url(images/logoum1.png);
+	background-repeat: no-repeat;
+}
+.mui-page-title {
+	width: 100%;
+	text-align: center;
+	font-size: 20px;
+	padding-top: 12px;
+}
+
+.toast_msg{
+	font-family: proximanova, Calibri;
+	height:auto;
+	z-index:5;
+	position:absolute;
+	left:50%;
+	bottom:10px;
+	background-color: #383838;
+	color: #F0F0F0;
+	font-size: 15px;
+	padding:10px;
+	text-align:center;
+	border-radius: 10px;
+	-webkit-box-shadow: 0px 0px 24px -1px rgba(56, 56, 56, 1);
+	-moz-box-shadow: 0px 0px 24px -1px rgba(56, 56, 56, 1);
+	box-shadow: 0px 0px 24px -1px rgba(56, 56, 56, 1);
+}
+
+
+
+
