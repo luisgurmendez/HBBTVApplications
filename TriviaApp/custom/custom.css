@@ -165,9 +165,9 @@ a {
 .question_container{
 	background-color: white;
 }
-.mui-page{
-	background-color: gray;
-	background-image: repeating-linear-gradient(90deg, transparent, transparent 35px, rgba(255,255,255,.5) 35px, rgba(255,255,255,.5) 70px);
+.mui-page-body{
+	background-color: #fffbe0;
+
 
 }
 

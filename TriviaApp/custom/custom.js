@@ -142,7 +142,7 @@ function installDynamicEvents(){
 
 	})
 	$('.send_answerbtn').click(function(){
-		if(question.isAnswered && !question.isSent){
+		if(question.isAnswered && !question.isSent && canAnswer){
 			websocket.send(JSON.stringify({'typeOfMessage':'answerMessage','questionNumber':question.questionNumber,'playersAnswer': question.answer}))
 			console.log(JSON.stringify({'typeOfMessage':'answerMessage','questionNumber':question.questionNumber,'playersAnswer': question.answer}))
 			$(this).addClass('deactivated_btn');
@@ -162,7 +162,7 @@ function installDynamicEvents(){
 }
 
 function showErrorMessage(msg){
-	mui.alert(msg)
+	toast.toast(msg)
 
 }
 
@@ -192,11 +192,12 @@ var toast={
 
 function connectWebSocket(){
 
-	wsUri="ws://192.168.4.34:8080/TriviaServer/questionWs";
-	websocket = new WebSocket(wsUri);
+	wsUri="ws://192.168.4.35:8080/TriviaServer/questionWs";
+	websocket = new WebSocket(wsUri)
 	websocket.onopen=function(evt){
 		//$('#home-body > div > div').prepend("<span class='info_msg con_success'> - - Connection Successfull! - - </span>")
-		console.log("Con Successfull")
+		toast.toast("Connection Successful")
+		
 	}
 	websocket.onmessage=function(evt){
 		typeOfMessage= jQuery.parseJSON(evt.data).typeOfMessage;
@@ -207,6 +208,8 @@ function connectWebSocket(){
 				$('.question_container.activeQuestion').remove();
 				question.data=data;
 				$(createQuestionHTML(data,true)).prependTo('#home-body > div > div').hide().fadeIn("slow");
+				screenHeight=$('#mui-screen').height()/3
+				$('.question_container.activeQuestion').css({'margin-top': screenHeight});
 				mui.viewport.refreshScroll("home-page");
 				mui.viewport.refreshScroll("historical-page");
 				question.questionNumber=data.questionNumber;
@@ -252,18 +255,22 @@ function connectWebSocket(){
 							toast.toast('Wrong Answer!')
 						}
 					}else{
+						toast.toast("Time is out")
+						$($('.question_container.activeQuestion .answer_wrapper')[indexAnswer[data.rightAnswer]-1]).children('.custom_radiobtn').addClass('correct_answer')
 						$('.custom_radiobtn.selected').removeClass('selected')
 						$('.send_answerbtn').css({"background-color":"#c3c0c8","box-shadow":"2px 2px 1px #96949a"})
 
 					}
+
+					setTimeout(function(){$('.question_container.activeQuestion').fadeOut(300)},3000);
 
 
 				}else{
 					//ERROR
 					showErrorMessage("ERROR");
 				}
-				
-				
+
+
 				break;
 			case "timeoutMessage":
 				canAnswer=false;
@@ -274,7 +281,7 @@ function connectWebSocket(){
 				break;
 
 			case "errorMessage":
-
+				toast.toast(data.message)
 
 
 				break;
@@ -293,7 +300,10 @@ function connectWebSocket(){
 	}
 	websocket.onclose=function(evt){
 		$('.info_msg').remove()
+		$('.question_container').remove()
 		$('#home-body > div > div').prepend("<div class='reconnect_btn'><a href='#'>Reconnect</a></div>")
+		screenHeight=$('#mui-screen').height()/2
+		$('.reconnect_btn').css({'margin-top': screenHeight});
 		$('#home-body > div > div').prepend("<span class='info_msg con_close'> - - Connection Closed - - </span>")
 		installDynamicEvents();
 		mui.viewport.refreshScroll("home-page");
