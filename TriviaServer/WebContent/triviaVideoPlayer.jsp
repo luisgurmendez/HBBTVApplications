@@ -25,7 +25,7 @@
 	long startTimeInMilliseconds = (long)((currentTime - startTime) / 1000000);
 %>
 <body onload="initializaVideoSettings(<%= startTimeInMilliseconds %>);">
-	<embed type="application/x-vlc-plugin" loop="no" id="vlc" autostart="yes" target="http://localhost:8080/TriviaServer/dobleCara.mp4" />
+	<embed type="application/x-vlc-plugin" loop="no" id="vlc" autostart="yes" target="http://192.168.1.116:8080/TriviaServer/dobleCara.mp4" />
 	<!-- http://dev.hbbtvhat.com/index.php/canal-4/ -->
 	<div id="demo"></div>
 	<script type="text/javascript">

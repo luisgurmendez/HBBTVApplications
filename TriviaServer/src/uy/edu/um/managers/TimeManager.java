@@ -19,4 +19,8 @@ public class TimeManager {
 	public long getStartTime(){
 		return startTime;
 	}
+	
+	public long getCurrentTime(){
+		return (System.nanoTime() - startTime)/1000000000;
+	}
 }

@@ -7,9 +7,11 @@ public class ServerJSONMessages {
 	private static String QUESTION_MESSAGE;
 	private static String RESULT_MESSAGE;
 	private static String ERROR_MESSAGE;
+	private static String ASK_ME_LATER;
 
 	public static String getQuestionMessage(Question question){
-		QUESTION_MESSAGE = "{\"" + JSONFields.TYPE_OF_MESSAGE + "\":\"" + JSONFields.QUESTION_MESSAGE + "\", \"" 
+		QUESTION_MESSAGE = "{\"" + JSONFields.APP + "\":\"" + JSONFields.TRIVIA + "\", \"" 
+								 + JSONFields.TYPE_OF_MESSAGE + "\":\"" + JSONFields.QUESTION_MESSAGE + "\", \"" 
 								 + JSONFields.QUESTION_NUMBER + "\":\"" + question.getNumber() + "\", \""
 								 + JSONFields.QUESTION + "\":\""+ question.getQuestion() + "\", \"" 
 								 + JSONFields.OPTIONS + "\":[";
@@ -24,16 +26,24 @@ public class ServerJSONMessages {
 	}
 	
 	public static String getResultMessage(char rightAnswer, int number){
-		RESULT_MESSAGE = "{\"" + JSONFields.TYPE_OF_MESSAGE + "\":\"" + JSONFields.RESULT_MESSAGE + "\", \"" 
+		RESULT_MESSAGE = "{\"" + JSONFields.APP + "\":\"" + JSONFields.TRIVIA + "\", \"" 
+							   + JSONFields.TYPE_OF_MESSAGE + "\":\"" + JSONFields.RESULT_MESSAGE + "\", \"" 
 						 	   + JSONFields.QUESTION_NUMBER + "\":\"" + number + "\", \""
 							   + JSONFields.RIGHT_ANSWER + "\":\"" + rightAnswer + "\"}";
 		return RESULT_MESSAGE;
 	}
 	
 	public static String getErrorMessage(String message){
-		ERROR_MESSAGE = "{\"" + JSONFields.TYPE_OF_MESSAGE + "\":\"" + JSONFields.ERROR_MESSAGE + "\", \"" 
+		ERROR_MESSAGE = "{\"" + JSONFields.APP + "\":\"" + JSONFields.TRIVIA + "\", \"" 
+							  + JSONFields.TYPE_OF_MESSAGE + "\":\"" + JSONFields.ERROR_MESSAGE + "\", \"" 
 							  + JSONFields.MESSAGE + "\":\"" + message + "\"}";
 		return ERROR_MESSAGE;
+	}
+
+	public static String getAskMeLater() {
+		ASK_ME_LATER = "{\"" + JSONFields.APP + "\":\"" + JSONFields.TRIVIA + "\", \"" 
+							 + JSONFields.TYPE_OF_MESSAGE + "\":\"" + JSONFields.ASK_ME_LATER + "\"}";
+		return ASK_ME_LATER;
 	}
 
 }
