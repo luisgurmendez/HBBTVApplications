@@ -3,6 +3,7 @@
 	<name>TriviaServer</name>
 	<comment></comment>
 	<projects>
+		<project>VLCController</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

@@ -1,0 +1,8 @@
+2016-09-19 09:59:10,097 INFO  [main] ProcessUtil     - /Applications/VLC.app/Contents/MacOS/VLC --no-stats --intf=telnet --telnet-port=9997 --telnet-password=UM-Hybrid --ttl=1 
+2016-09-19 09:59:10,844 INFO  [main] VlcVlmBasicController     - Disconnecting
+2016-09-19 09:59:10,844 DEBUG [main] VlcVlmBasicController     - VLM connect response output: null
+2016-09-19 09:59:10,844 DEBUG [main] VlcVlmBasicController     - sendind command: new UM-Channel broadcast enabled loop
+2016-09-19 17:31:10,336 INFO  [main] ProcessUtil     - /Applications/VLC.app/Contents/MacOS/VLC --no-stats --intf=telnet --telnet-port=9997 --telnet-password=UM-Hybrid --ttl=1 
+2016-09-19 17:31:10,905 INFO  [main] VlcVlmBasicController     - Disconnecting
+2016-09-19 17:31:10,905 DEBUG [main] VlcVlmBasicController     - VLM connect response output: null
+2016-09-19 17:31:10,906 DEBUG [main] VlcVlmBasicController     - sendind command: new UM-Channel broadcast enabled loop
