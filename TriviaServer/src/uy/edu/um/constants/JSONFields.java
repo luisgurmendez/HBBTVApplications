@@ -7,6 +7,7 @@ public class JSONFields {
 	
 	// DIFFERENT APPS
 	public static final String TRIVIA = "trivia";
+	public static final String SUMMARY = "summary";
 	
 	// TYPES OF MESSAGES
 	public static final String QUESTION_MESSAGE = "questionMessage";
@@ -14,7 +15,8 @@ public class JSONFields {
 	public static final String RESULT_MESSAGE = "resultMessage";
 	public static final String ERROR_MESSAGE = "errorMessage";
 	public static final String ASK_ME_LATER = "askMeLater";
-	public static final String REQUEST_MESSAGE = "requestMessage"; 
+	public static final String REQUEST_MESSAGE = "requestMessage";
+	public static final String SUMMARY_MESSAGE = "summaryMessage";
 	
 	// QUESTION MESSAGE INFORMATION
 	public static final String QUESTION_NUMBER = "questionNumber";

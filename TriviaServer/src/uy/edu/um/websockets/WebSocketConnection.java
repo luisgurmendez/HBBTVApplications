@@ -17,11 +17,16 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import exceptions.ControllerNotCreatedException;
+import gui.ControllerGUI;
 import uy.edu.um.constants.JSONFields;
 import uy.edu.um.constants.ServerJSONMessages;
 import uy.edu.um.managers.TimeManager;
 import uy.edu.um.model.Question;
 import uy.edu.um.reader.FileParser;
+import uy.edu.um.startup.StartUpConfig;
+import vlc.VlcVlmBasicController;
+import vlc.VlcVlmState;
 
 @ServerEndpoint("/questionWs")
 public class WebSocketConnection {
@@ -29,6 +34,8 @@ public class WebSocketConnection {
 	private static String messageToSend;
 	private static Integer indexOfCurrentQuestion;
 	private static Map<Session, Integer> resultsHashMap = Collections.synchronizedMap(new HashMap<Session, Integer>());
+	
+	
 	
 	@OnOpen
 	public void openConnection(Session session) {
@@ -45,6 +52,8 @@ public class WebSocketConnection {
 				updateIndexOfCurrentQuestion();
 				if (json.get(JSONFields.APP).equals(JSONFields.TRIVIA)){
 					handleTriviaMessage(session, msg, json);
+				}else if(json.get(JSONFields.APP).equals(JSONFields.SUMMARY)){
+					handleSummaryMessages(session,json);
 				}
 			}
 		} catch (ParseException e) {
@@ -63,21 +72,29 @@ public class WebSocketConnection {
 	
 	// ???
 	private void updateIndexOfCurrentQuestion(){
-		long currentTime = TimeManager.getInstance(false).getCurrentTime(); // TODO: getTimeFromVLCPlayer();
-		List<Question> list = FileParser.getInstance().getQuestions();
-		if(indexOfCurrentQuestion==-1){
-			indexOfCurrentQuestion=0;
-		}
-		for (int i=indexOfCurrentQuestion; i<list.size(); i++){
-			if ((i == list.size() - 1 && list.get(i).getEndTime() <= currentTime) || // Ya termin� el programa
-					(i + 1 < list.size() && list.get(i).getEndTime() < currentTime && list.get(i+1).getStartTime() > currentTime)){ // Est� en medio de preguntas
-				indexOfCurrentQuestion = -1;
-				break;
-			}else if (list.get(i).getStartTime() < currentTime && list.get(i).getEndTime() > currentTime){
-				indexOfCurrentQuestion = i;
-				break;
+		//long currentTime = TimeManager.getInstance(false).getCurrentTime(); // TODO: getTimeFromVLCPlayer();
+		long currentTime;
+		try {
+			currentTime = VlcVlmBasicController.getInstance().state(StartUpConfig.CHANNEL_NAME).getTime();
+			List<Question> list = FileParser.getInstance().getQuestions();
+			if(indexOfCurrentQuestion==-1){
+				indexOfCurrentQuestion=0;
 			}
+			for (int i=indexOfCurrentQuestion; i<list.size(); i++){
+				if ((i == list.size() - 1 && list.get(i).getEndTime() <= currentTime) || // Ya termin� el programa
+						(i + 1 < list.size() && list.get(i).getEndTime() < currentTime && list.get(i+1).getStartTime() > currentTime)){ // Est� en medio de preguntas
+					indexOfCurrentQuestion = -1;
+					break;
+				}else if (list.get(i).getStartTime() < currentTime && list.get(i).getEndTime() > currentTime){
+					indexOfCurrentQuestion = i;
+					break;
+				}
+			}
+		} catch (ControllerNotCreatedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		
 	}
 	
 	private void handleTriviaMessage(Session session, String msg, JSONObject json) throws IOException{
@@ -97,21 +114,33 @@ public class WebSocketConnection {
 							.getErrorMessage("Estas intentando responder una pregunta que no es la que actualmente se estan mostrando en TV."));
 				}
 			}else{ // Es un requestMessage
-				long currentTime = TimeManager.getInstance(false).getCurrentTime(); // TODO: getTimeFromVLCPlayer();
-				Question question = FileParser.getInstance().getQuestions().get(indexOfCurrentQuestion);
-				if (question.getAnswerTime() > currentTime){
-					messageToSend = ServerJSONMessages.getQuestionMessage(question);
-				}else{
-					messageToSend = ServerJSONMessages.getResultMessage(question.getRightAnswer(), question.getNumber());
-					
+				//long currentTime = TimeManager.getInstance(false).getCurrentTime(); // TODO: getTimeFromVLCPlayer()
+				long currentTime;
+				try {
+					currentTime = VlcVlmBasicController.getInstance().state(StartUpConfig.CHANNEL_NAME).getTime();
+					Question question = FileParser.getInstance().getQuestions().get(indexOfCurrentQuestion);
+					if (question.getAnswerTime() > currentTime){
+						messageToSend = ServerJSONMessages.getQuestionMessage(question);
+					}else{
+						messageToSend = ServerJSONMessages.getResultMessage(question.getRightAnswer(), question.getNumber());
+						
+					}
+					System.out.println(messageToSend);
+					session.getBasicRemote().sendText(messageToSend);
+				} catch (ControllerNotCreatedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-				System.out.println(messageToSend);
-				session.getBasicRemote().sendText(messageToSend);
+				
 			}
 		}else{
 			messageToSend = ServerJSONMessages.getAskMeLater();
 			session.getBasicRemote().sendText(messageToSend);
 		}
+	}
+	
+	private void handleSummaryMessages(Session session, JSONObject json){
+		
 	}
 	
 	@OnClose

@@ -4,7 +4,8 @@
 <%@page import="java.awt.event.ActionEvent"%>
 <%@page import="javax.swing.AbstractAction"%>
 <%@page import="javax.swing.KeyStroke"%>
-<%@page import="uy.edu.um.managers.TimeManager" %>
+<%@page import="uy.edu.um.startup.StartUpConfig" %>
+<%@page import="vlc.VlcVlmBasicController" %>
 
 <%@page import="java.awt.event.KeyEvent"%>
 <%@page import="javax.swing.JComponent"%>
@@ -20,7 +21,13 @@
 <title>Video Player</title>
 </head>
 <%
-	long startTime = TimeManager.getInstance(true).getStartTime();
+	//long startTime = TimeManager.getInstance(true).getStartTime();
+	long startTime=0;
+	try{
+		startTime = VlcVlmBasicController.getInstance().state(StartUpConfig.CHANNEL_NAME).getTime();
+	}catch(Exception e){
+		e.printStackTrace();
+	}
 	long currentTime = System.nanoTime();
 	long startTimeInMilliseconds = (long)((currentTime - startTime) / 1000000);
 %>

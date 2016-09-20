@@ -1,0 +1,40 @@
+.summaryMsgContainer{
+    position: relative;
+    font-family: proximanova;
+}
+
+
+
+.summaryMsg{
+    font-size: 13px;
+    text-align: center;
+    width:80%;
+    border-radius: 10px;
+    border: 1px solid lightgray;
+    margin-top:10px;
+    margin-bottom:10px;
+    padding-top:10px;
+    padding-bottom:10px;
+    padding-right: 3px;
+    padding-left: 3px;
+    margin-left:5%;
+    display:inline-block;
+    background-color: white;
+}
+.summaryMsgDate{
+
+    position: absolute;
+    margin-left: 3%;
+    font-size: 11px;
+    width:15%;
+    color: gray;
+    top:50%;
+    margin-top: -6px;
+
+}
+
+.summaryMsg.summaryLastElement{
+    border: 2px solid #9acce6;
+    transform: scale(1.05);
+}
+
